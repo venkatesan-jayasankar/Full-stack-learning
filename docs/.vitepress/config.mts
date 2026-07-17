@@ -17,6 +17,13 @@ function titleCase(slug: string) {
     .join(' ')
 }
 
+function capitalizeWords(str: string) {
+  return str
+    .split(' ')
+    .map((w) => (w.length ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+    .join(' ')
+}
+
 function titleFromMarkdown(filePath: string, fallback: string) {
   try {
     const content = fs.readFileSync(filePath, 'utf-8')
@@ -57,7 +64,7 @@ function buildSidebarItems(dirPath: string, urlBase: string): any[] {
     const children = buildSidebarItems(folderPath, `${urlBase}${folder}/`)
 
     items.push({
-      text: hasIndex ? titleFromMarkdown(indexPath, titleCase(folder)) : titleCase(folder),
+      text: capitalizeWords(hasIndex ? titleFromMarkdown(indexPath, titleCase(folder)) : titleCase(folder)),
       link: hasIndex ? `${urlBase}${folder}/` : undefined,
       collapsed: true,
       items: children.length ? children : undefined,
@@ -68,7 +75,7 @@ function buildSidebarItems(dirPath: string, urlBase: string): any[] {
     const filePath = path.join(dirPath, file)
     const slug = file.replace(/\.md$/, '')
     items.push({
-      text: titleFromMarkdown(filePath, titleCase(slug)),
+      text: capitalizeWords(titleFromMarkdown(filePath, titleCase(slug))),
       link: `${urlBase}${slug}`,
     })
   }
@@ -87,15 +94,15 @@ function buildSidebar() {
 function buildNav() {
   return listSections().map((section) => {
     const indexPath = path.join(docsDir, section, 'index.md')
-    const text = fs.existsSync(indexPath)
-      ? titleFromMarkdown(indexPath, titleCase(section))
-      : titleCase(section)
+    const text = capitalizeWords(
+      fs.existsSync(indexPath) ? titleFromMarkdown(indexPath, titleCase(section)) : titleCase(section)
+    )
     return { text, link: `/${section}/` }
   })
 }
 
 export default defineConfig({
-  title: 'Engineering Learning Base',
+  title: ' Documentation FSD',
   description: 'Personal engineering knowledge base',
   base: '/Full-stack-learning/',
   lastUpdated: true,
