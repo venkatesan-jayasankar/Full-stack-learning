@@ -11,3 +11,40 @@
 .VPSidebarItem.level-5 .text {
   font-weight: 400;
 }
+
+/* Prev/Next page cards at the bottom of each doc page. */
+.VPDocFooter .pager-link {
+  border: 1px solid var(--vp-c-divider) !important;
+  border-radius: 12px !important;
+  background-color: var(--vp-c-bg-soft);
+  padding: 12px 20px !important;
+  transition:
+    border-color 0.25s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.VPDocFooter .pager-link:hover {
+  border-color: var(--vp-c-brand-1) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.VPDocFooter .pager-link .desc {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px !important;
+}
+
+.VPDocFooter .pager-link .title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+.VPDocFooter .pager-link.prev .title::before {
+  content: '← ';
+}
+
+.VPDocFooter .pager-link.next .title::after {
+  content: ' →';
+}
